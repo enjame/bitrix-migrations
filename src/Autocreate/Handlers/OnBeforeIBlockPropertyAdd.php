@@ -15,10 +15,11 @@ class OnBeforeIBlockPropertyAdd extends BaseHandler implements HandlerInterface
     public function __construct($params)
     {
         $this->fields = $params[0];
-
+        
         if (!$this->fields['IBLOCK_ID']) {
             throw new SkipHandlerException();
         }
+        $this->fields['IBLOCK_CODE'] = $this->getIBlockCodeById($this->fields['IBLOCK_ID']);
     }
 
     /**
@@ -28,7 +29,7 @@ class OnBeforeIBlockPropertyAdd extends BaseHandler implements HandlerInterface
      */
     public function getName()
     {
-        return "auto_add_iblock_element_property_{$this->fields['CODE']}_to_ib_{$this->fields['IBLOCK_ID']}";
+        return "auto_add_iblock_element_property_{$this->fields['CODE']}_to_ib_{$this->fields['IBLOCK_CODE']}";
     }
 
     /**
@@ -51,6 +52,7 @@ class OnBeforeIBlockPropertyAdd extends BaseHandler implements HandlerInterface
         return [
             'fields'   => var_export($this->fields, true),
             'iblockId' => $this->fields['IBLOCK_ID'],
+            'iblockCode' => $this->fields['IBLOCK_CODE'],
             'code'     => "'".$this->fields['CODE']."'",
         ];
     }

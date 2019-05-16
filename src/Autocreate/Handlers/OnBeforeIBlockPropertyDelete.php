@@ -14,6 +14,7 @@ class OnBeforeIBlockPropertyDelete extends BaseHandler implements HandlerInterfa
     public function __construct($params)
     {
         $this->fields = CIBlockProperty::getByID($params[0])->fetch();
+        $this->fields['IBLOCK_CODE'] = $this->getIBlockCodeById($this->fields['IBLOCK_ID']);
     }
 
     /**
@@ -23,7 +24,7 @@ class OnBeforeIBlockPropertyDelete extends BaseHandler implements HandlerInterfa
      */
     public function getName()
     {
-        return "auto_delete_iblock_element_property_{$this->fields['CODE']}_in_ib_{$this->fields['IBLOCK_ID']}";
+        return "auto_delete_iblock_element_property_{$this->fields['CODE']}_in_ib_{$this->fields['IBLOCK_CODE']}";
     }
 
     /**
@@ -45,6 +46,7 @@ class OnBeforeIBlockPropertyDelete extends BaseHandler implements HandlerInterfa
     {
         return [
             'iblockId' => $this->fields['IBLOCK_ID'],
+            'iblockCode' => $this->fields['IBLOCK_CODE'],
             'code'     => "'".$this->fields['CODE']."'",
         ];
     }

@@ -31,6 +31,7 @@ class OnBeforeIBlockPropertyUpdate extends BaseHandler implements HandlerInterfa
         if (!$this->propertyHasChanged() || !$this->fields['IBLOCK_ID']) {
             throw new SkipHandlerException();
         }
+        $this->fields['IBLOCK_CODE'] = $this->getIBlockCodeById($this->fields['IBLOCK_ID']);
     }
 
     /**
@@ -40,7 +41,7 @@ class OnBeforeIBlockPropertyUpdate extends BaseHandler implements HandlerInterfa
      */
     public function getName()
     {
-        return "auto_update_iblock_element_property_{$this->fields['CODE']}_in_ib_{$this->fields['IBLOCK_ID']}";
+        return "auto_update_iblock_element_property_{$this->fields['CODE']}_in_ib_{$this->fields['IBLOCK_CODE']}";
     }
 
     /**
@@ -63,6 +64,7 @@ class OnBeforeIBlockPropertyUpdate extends BaseHandler implements HandlerInterfa
         return [
             'fields'   => var_export($this->fields, true),
             'iblockId' => $this->fields['IBLOCK_ID'],
+            'iblockCode' => $this->fields['IBLOCK_CODE'],
             'code'     => "'".$this->fields['CODE']."'",
         ];
     }

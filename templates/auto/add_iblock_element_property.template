@@ -15,6 +15,9 @@ class __className__ extends BitrixMigration
     {
         $fields = __fields__;
 
+        $iBlockID = $this->getIblockIdByCode('__iblockCode__');
+        $fields['IBLOCK_ID'] = $iBlockID;
+
         $ibp = new CIBlockProperty();
         $propId = $ibp->add($fields);
 
@@ -31,7 +34,9 @@ class __className__ extends BitrixMigration
      */
     public function down()
     {
-        $id = $this->getIblockPropIdByCode(__code__, __iblockId__);
+        $iBlockID = $this->getIblockIdByCode('__iblockCode__');
+
+        $id = $this->getIblockPropIdByCode(__code__, $iBlockID);
 
         $ibp = new CIBlockProperty();
         $deleted = $ibp->delete($id);
