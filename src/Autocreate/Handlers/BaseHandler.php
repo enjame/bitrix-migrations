@@ -1,6 +1,7 @@
 <?php
 
 namespace Arrilot\BitrixMigrations\Autocreate\Handlers;
+use CIBlock;
 
 abstract class BaseHandler
 {
