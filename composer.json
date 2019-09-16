@@ -1,5 +1,5 @@
 {
-  "name": "svazist/bitrix-migrations",
+  "name": "enjame/bitrix-migrations",
   "license": "MIT",
   "description": "Database migrations for Bitrix CMS",
   "keywords": [
@@ -8,8 +8,8 @@
   ],
   "authors": [
     {
-      "name": "Nekrasov Ilya",
-      "email": "nekrasov.ilya90@gmail.com"
+      "name": "Enjame",
+      "email": "enjame74@gmail.com"
     }
   ],
   "homepage": "https://github.com/Arrilot/bitrix-migrations",
