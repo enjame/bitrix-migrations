@@ -13,16 +13,19 @@ class StatusCommand extends AbstractCommand
      */
     protected $migrator;
 
+    protected static $defaultName = 'status';
+
     /**
      * Constructor.
      *
-     * @param Migrator $migrator
+     * @param Migrator    $migrator
+     * @param string|null $name
      */
-    public function __construct(Migrator $migrator)
+    public function __construct(Migrator $migrator, $name = null)
     {
         $this->migrator = $migrator;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     /**
@@ -30,7 +33,7 @@ class StatusCommand extends AbstractCommand
      */
     protected function configure()
     {
-        $this->setName('status')->setDescription('Show status about last migrations');
+        $this->setDescription('Show status about last migrations');
     }
 
     /**

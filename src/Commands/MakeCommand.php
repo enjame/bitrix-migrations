@@ -15,16 +15,19 @@ class MakeCommand extends AbstractCommand
      */
     protected $migrator;
 
+    protected static $defaultName = 'make';
+
     /**
      * Constructor.
      *
-     * @param Migrator $migrator
+     * @param Migrator    $migrator
+     * @param string|null $name
      */
-    public function __construct(Migrator $migrator)
+    public function __construct(Migrator $migrator, $name = null)
     {
         $this->migrator = $migrator;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     /**
@@ -32,8 +35,7 @@ class MakeCommand extends AbstractCommand
      */
     protected function configure()
     {
-        $this->setName('make')
-            ->setDescription('Create a new migration file')
+        $this->setDescription('Create a new migration file')
             ->addArgument(
                 'name',
                 InputArgument::REQUIRED,

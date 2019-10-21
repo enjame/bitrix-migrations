@@ -20,18 +20,21 @@ class InstallCommand extends AbstractCommand
      */
     protected $table;
 
+    protected static $defaultName = 'install';
+
     /**
      * Constructor.
      *
      * @param string                   $table
      * @param DatabaseStorageInterface $database
+     * @param string|null              $name
      */
-    public function __construct($table, DatabaseStorageInterface $database)
+    public function __construct($table, DatabaseStorageInterface $database, $name = null)
     {
         $this->table = $table;
         $this->database = $database;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     /**
@@ -39,7 +42,7 @@ class InstallCommand extends AbstractCommand
      */
     protected function configure()
     {
-        $this->setName('install')->setDescription('Create the migration database table');
+        $this->setDescription('Create the migration database table');
     }
 
     /**

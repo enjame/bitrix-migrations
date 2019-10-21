@@ -15,16 +15,19 @@ class TemplatesCommand extends AbstractCommand
      */
     protected $collection;
 
+    protected static $defaultName = 'templates';
+
     /**
      * Constructor.
      *
      * @param TemplatesCollection $collection
+     * @param string|null         $name
      */
-    public function __construct(TemplatesCollection $collection)
+    public function __construct(TemplatesCollection $collection, $name = null)
     {
         $this->collection = $collection;
 
-        parent::__construct();
+        parent::__construct($name);
     }
 
     /**
@@ -32,7 +35,7 @@ class TemplatesCommand extends AbstractCommand
      */
     protected function configure()
     {
-        $this->setName('templates')->setDescription('Show the list of available migration templates');
+        $this->setDescription('Show the list of available migration templates');
     }
 
     /**

@@ -107,7 +107,7 @@ class IBlock
     }
 
     /**
-     * Внешний код.
+     * Код типа инфоблока
      * @param string $iblockTypeId
      * @return $this
      */
@@ -186,6 +186,50 @@ class IBlock
     public function setCanonicalPageUrl($canonicalPageUrl)
     {
         $this->fields['CANONICAL_PAGE_URL'] = $canonicalPageUrl;
+
+        return $this;
+    }
+
+    /**
+     * URL детальной страницы элемента.
+     *
+     * @param string $detailPageUrl
+     *
+     * @return $this
+     */
+    public function setDetailPageUrl($detailPageUrl)
+    {
+        $this->fields['DETAIL_PAGE_URL'] = $detailPageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Устанавливает значения по умолчанию для страниц инфоблока, раздела и деталей элемента
+     * (как при создании через административный интерфейс или с ЧПУ).
+     *
+     * Для использовании ЧПУ рекомендуется сделать обязательными для заполнения символьный код
+     * элементов и разделов инфоблока.
+     *
+     * @param bool sef Использовать ли ЧПУ (понадобится добавить правило в urlrewrite)
+     *
+     * @return IBlock
+     */
+    public function setDefaultUrls($sef = false)
+    {
+        if ($sef === true) {
+            $prefix = "#SITE_DIR#/#IBLOCK_TYPE_ID#/#IBLOCK_CODE#/";
+            $this
+                ->setListPageUrl($prefix)
+                ->setSectionPageUrl("$prefix#SECTION_CODE_PATH#/")
+                ->setDetailPageUrl("$prefix#SECTION_CODE_PATH#/#ELEMENT_CODE#/");
+        } else {
+            $prefix = "#SITE_DIR#/#IBLOCK_TYPE_ID#";
+            $this
+                ->setListPageUrl("$prefix/index.php?ID=#IBLOCK_ID#")
+                ->setSectionPageUrl("$prefix/list.php?SECTION_ID=#SECTION_ID#")
+                ->setDetailPageUrl("$prefix/detail.php?ID=#ELEMENT_ID#");
+        }
 
         return $this;
     }
@@ -378,6 +422,18 @@ class IBlock
     public function setLastConvElement($lastConvElement)
     {
         $this->fields['LAST_CONV_ELEMENT'] = $lastConvElement;
+
+        return $this;
+    }
+
+    /**
+     * Служебное поле для установки прав для разных групп на доступ к информационному блоку.
+     * @param array $groupId Массив соответствий кодов групп правам доступа
+     * @return $this
+     */
+    public function setGroupId($groupId)
+    {
+        $this->fields['GROUP_ID'] = $groupId;
 
         return $this;
     }
